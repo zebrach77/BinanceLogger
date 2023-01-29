@@ -3,7 +3,7 @@ project(BinanceLogger)
 
 set(CMAKE_CXX_STANDARD 20)
 
-FIND_PACKAGE( Boost 1.40 COMPONENTS program_options json REQUIRED )
+FIND_PACKAGE( Boost 1.75 COMPONENTS program_options json REQUIRED )
 FIND_PACKAGE( OpenSSL REQUIRED )
 #find_package(PkgConfig REQUIRED)
 pkg_check_modules(JSONCPP jsoncpp)

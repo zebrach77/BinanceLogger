@@ -6,8 +6,6 @@
 #include <boost/beast/websocket/ssl.hpp>
 
 #include <string>
-#include <mutex>
-#include <condition_variable>
 #include <boost/json.hpp>
 #include <fstream>
 #include "thread_pool.cpp"
@@ -17,6 +15,7 @@
 #include <stdlib.h>
 #include "colormod.h"
 #include <cmath>
+#include <iomanip>
 
 #include <boost/asio/connect.hpp>
 #include <boost/asio/ip/tcp.hpp>
