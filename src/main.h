@@ -60,5 +60,5 @@ void PrintTimeToStream(std::ofstream &out_stream){
 	auto nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
 
 	out_stream <<local_tm.tm_mon+1<<"/"<<local_tm.tm_mday<<"/"<<local_tm.tm_year+1900<<" ";
-	out_stream << hours.count()+19<<":"<<minutes.count()<<":"<<seconds.count()<<"."<<nanoseconds.count()<<"          ";
+	out_stream << (hours.count()+11)%24<<":"<<minutes.count()<<":"<<seconds.count()<<"."<<nanoseconds.count()<<"          ";
 }

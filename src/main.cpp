@@ -88,7 +88,7 @@ int main(int argc, char** argv)
 			double temp_a = websocketSession->_ask_price;
 			double temp_B = websocketSession->_bid_qty;
 			double temp_A = websocketSession->_ask_qty;
-			if (temp_a && temp_b && temp_A && temp_B) {
+			if (temp_a && temp_b) {
 				PrintTimeToStream(out);
 				out <<std::setprecision(10) << "(Bid + Oﬀer(Ask)) / 2 price: " << round_to_5((temp_b + temp_a)/2) <<",       "
 				<< "(Bid + Oﬀer(Ask)) / 2 qty: " << round_to_5((temp_B + temp_A)/2)
