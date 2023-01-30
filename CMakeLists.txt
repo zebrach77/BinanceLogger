@@ -10,7 +10,7 @@ pkg_check_modules(JSONCPP jsoncpp)
 #link_libraries(${JSONCPP_LIBRARIES})
 INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 
-add_executable(BinanceLogger main.cpp colormod.h)
+add_executable(BinanceLogger main.cpp colormod.h main.h main.h)
 TARGET_LINK_LIBRARIES( BinanceLogger LINK_PUBLIC ${Boost_LIBRARIES} )
 TARGET_LINK_LIBRARIES( BinanceLogger LINK_PUBLIC OpenSSL::SSL)
 #TARGET_LINK_LIBRARIES(U3 LINK_PUBLIC ${JSONCPP_LIBRARIES})
