@@ -40,5 +40,7 @@ sudo chmod -R 777 delete_script
 ```
 
 Логи подключения пишутся в connection_log.txt
+
+
 Логи данных пишутся в data_log.txt
 
