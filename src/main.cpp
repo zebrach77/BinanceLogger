@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 	std::string inputStr;
 
 	// Thread Pool для работы с потоками
-	tp::ThreadPool pool{4};
+	boost::asio::thread_pool pool(4);
 
 	// Индикаторы начала и конца работы программы
 	std::atomic<bool> isEnd = false;
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 	websocketSession = std::make_shared<WebSocketSession>(ioc, ctx, host, port, target);
 
 	// Кладём в Pool лямбда-функцию для обработки событий и считывания с консоли команд
-	pool.Submit(
+	boost::asio::post(pool,
 			[&inputStr, &isEnd, &isFirst]() {
 				while (inputStr[0] != 's' && inputStr[0] != EOF) {
 					if (isFirst) {
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
 			});
 
 	// Кладём в Pool лямбда-функцию для работы с websocket
-	pool.Submit(
+	boost::asio::post(pool,
 			[&websocketSession, &ioc, &ctx, host, port, target, &isEnd, &isFirst]() {
 				while (isEnd || isFirst){}
 				while (!isEnd && !isFirst) {
@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 			});
 
 	// Кладём в Pool лямбда-функцию для остановки
-	pool.Submit(
+	boost::asio::post(pool,
 			[&websocketSession, &isEnd, &isFirst]() {
 				while (isEnd || isFirst){}
 				while (!isEnd && !isFirst) {}
@@ -81,7 +81,8 @@ int main(int argc, char** argv)
 			});
 
 	// Кладём в Pool лямбда-функцию для получения нужных данных и их вывода в логи
-	pool.Submit([&isEnd, &isFirst, &out, &websocketSession] {
+	boost::asio::post(pool,
+			[&isEnd, &isFirst, &out, &websocketSession] {
 		while (isEnd || isFirst){}
 		while (!isEnd && !isFirst) {
 			double temp_b = websocketSession->_bid_price;
@@ -99,7 +100,7 @@ int main(int argc, char** argv)
 	});
 
 	//Объединяем потоки
-	pool.Join();
+	pool.join();
 
 	// Закрываем файл лога
 	out.close();
